@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+.container {
+  @apply mx-auto text-center p-5;
+}
+.body {
+  @apply bg-[#1D1E28];
+}
+.light {
+  @apply bg-white text-black;
+}
