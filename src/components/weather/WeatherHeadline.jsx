@@ -5,39 +5,44 @@ import { getFormattedDate } from "../../utils/date-utils";
 export const WeatherHeadline = () => {
   const { weather, loading } = useContext(WeatherContext);
 
-  const { location, temperature, climate, time } = weather;
+  const location = weather?.location || "";
+  const temperature = weather?.temperature;
+  const climate = weather?.climate || {};
+  const time = weather?.time;
 
   return (
     <>
-      {" "}
-      <div className="col-span-1">
-        <div className="max-md:flex items-center justify-between md:-mt-10">
-          <img
-            src={`https://openweathermap.org/img/wn/${climate.icon}@2x.png`}
-            alt={climate.description}
-            className="w-20 h-20 sm:w-24 sm:h-24 md:w-auto md:h-auto"
-          />
-          <div className="max-md:flex items-center max-md:space-x-4">
-            <h1 className="text-4xl sm:text-5xl md:text-[60px] lg:text-[80px] xl:text-[100px] leading-none md:mb-4 font-bold">
+      <div>
+        <div className="flex flex-col  items-center justify-between lg:-mt-10 lg:space-x-12 xl:space-x-24">
+          {climate.icon && (
+            <img
+              src={`https://openweathermap.org/img/wn/${climate.icon}@2x.png`}
+              alt={climate.description || "weather icon"}
+              className="w-24 h-24 lg:w-32 lg:h-32 xl:w-40 xl:h-40"
+            />
+          )}
+          <div className="flex flex-col max-md:space-y-4 lg:items-center">
+            <h1 className="text-[60px] lg:text-[80px] xl:text-[100px] leading-none mb-4 lg:mb-0">
               {loading.state
                 ? loading.message
-                : `${Math.round(temperature)}° C`}
+                : temperature !== undefined
+                ? `${Math.round(temperature)}°C`
+                : "--"}
             </h1>
-            <div className="flex items-center space-x-2 sm:space-x-4 md:mb-4">
-              <img
-                src={PinIcon}
-                className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6"
-                alt="Location"
-              />
-              <h2 className="text-lg sm:text-xl md:text-2xl lg:text-[50px] truncate">
-                {location}
-              </h2>
+            <div className="flex items-center space-x-4 mb-4 lg:mb-0">
+              <img src={PinIcon} alt="Location Pin" className="w-6 h-6" />
+              <h2 className="text-2xl lg:text-[50px]">{location}</h2>
             </div>
           </div>
         </div>
-        <p className="text-xs sm:text-sm lg:text-lg mt-2 sm:mt-4">
-          {getFormattedDate(time, "time", false)} -{" "}
-          {getFormattedDate(time, "date", false)}
+        <p className="text-sm lg:text-lg mt-4">
+          {time
+            ? `${getFormattedDate(time, "time", false)} - ${getFormattedDate(
+                time,
+                "date",
+                false
+              )}`
+            : ""}
         </p>
       </div>
     </>
