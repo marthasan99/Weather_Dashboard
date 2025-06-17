@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { LocationContext } from "../context";
 const useWeather = () => {
   const [weather, setWeather] = useState({
     location: "",
@@ -13,11 +14,20 @@ const useWeather = () => {
     longitude: "",
     latitude: "",
   });
+  const nullLocation = {
+    location: "",
+    lat: 0,
+    lon: 0,
+  };
   const [loading, setLoading] = useState({
     state: false,
     message: "Loading...",
   });
   const [error, setError] = useState(null);
+  const { selectedLocation } = useContext(LocationContext);
+
+  console.log("Selected Location:", selectedLocation);
+
   const fetchWeatherData = useCallback((latitude, longitude) => {
     setLoading({
       state: true,
@@ -37,8 +47,10 @@ const useWeather = () => {
       })
       .then((data) => {
         const updatedWeatherData = {
-          ...weather,
-          location: data.name,
+          location:
+            selectedLocation === nullLocation
+              ? selectedLocation.location
+              : data.name,
           temperature: data.main.temp,
           climate: data.weather[0],
           maxTemperature: data.main.temp_max,
@@ -63,13 +75,19 @@ const useWeather = () => {
   }, []);
 
   useEffect(() => {
-    setLoading({ state: true, message: "Fetching Location..." });
-    navigator.geolocation.getCurrentPosition(function (position) {
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      fetchWeatherData(latitude, longitude);
-    });
-  }, [fetchWeatherData]);
+    // Check if we have a selected location from search
+    if (selectedLocation.lat && selectedLocation.lon) {
+      fetchWeatherData(selectedLocation.lat, selectedLocation.lon);
+    } else {
+      // Fall back to geolocation only if no location is selected
+      setLoading({ state: true, message: "Fetching Location..." });
+      navigator.geolocation.getCurrentPosition(function (position) {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        fetchWeatherData(latitude, longitude);
+      });
+    }
+  }, [fetchWeatherData, selectedLocation]);
 
   return { weather, loading, error };
 };

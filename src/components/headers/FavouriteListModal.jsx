@@ -1,7 +1,20 @@
 import { useContext } from "react";
-import { FavouriteContext } from "../../context";
+import { FavouriteContext, LocationContext } from "../../context";
+
 export const FavouriteListModal = ({ showModal }) => {
   const { favourites } = useContext(FavouriteContext);
+  const { setSelectedLocation } = useContext(LocationContext);
+
+  const handleLocationSelect = (fav) => {
+    // Convert favourite structure to location structure
+    const locationData = {
+      location: fav.location,
+      lat: fav.latitude,
+      lon: fav.longitude,
+    };
+    setSelectedLocation(locationData);
+  };
+
   return (
     <>
       {showModal && (
@@ -14,14 +27,17 @@ export const FavouriteListModal = ({ showModal }) => {
               favourites.map((fav, index) => (
                 <li
                   key={index}
-                  className="hover:bg-gray-500 bg-black/20"
+                  className="hover:bg-gray-200 cursor-pointer"
+                  onClick={() => handleLocationSelect(fav)}
                 >
-                  <img
-                    src={`https://openweathermap.org/img/wn/${fav.climate.icon}@2x.png`}
-                    alt={fav.climate.description}
-                    className="inline-block w-6 h-6 mr-2"
-                  />
-                  {fav.location}
+                  <div className="flex items-center">
+                    <img
+                      src={`https://openweathermap.org/img/wn/${fav.climate.icon}@2x.png`}
+                      alt={fav.climate.description}
+                      className="inline-block w-6 h-6 mr-2"
+                    />
+                    {fav.location}
+                  </div>
                 </li>
               ))
             )}
