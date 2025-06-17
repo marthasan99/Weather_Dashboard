@@ -17,44 +17,65 @@ export const WeatherCondition = () => {
   } = weather;
   return (
     <>
-      <div>
-        <p className="text-sm lg:text-lg font-bold uppercase mb-8">
+      {" "}
+      <div className="col-span-1">
+        <p className="text-sm sm:text-base lg:text-lg font-bold uppercase mb-6 sm:mb-8">
           {climate.description}
         </p>
-        <ul className="space-y-6 lg:space-y-6">
-          <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
+        <ul className="space-y-4 sm:space-y-6 lg:space-y-6">
+          <li className="text-sm sm:text-base lg:text-lg flex items-center justify-between space-x-4">
             <span>Temp max</span>
-            <div className="inline-flex space-x-4">
-              <p>{maxTemperature}°</p>
-              <img src={TempMaxIcon} alt="temp-max" />
+            <div className="inline-flex space-x-2 sm:space-x-4 items-center">
+              <p className="font-medium">{maxTemperature}°</p>
+              <img
+                src={TempMaxIcon}
+                alt="temp-max"
+                className="w-5 h-5 sm:w-6 sm:h-6"
+              />
             </div>
           </li>
-          <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
+          <li className="text-sm sm:text-base lg:text-lg flex items-center justify-between space-x-4">
             <span>Temp min</span>
-            <div className="inline-flex space-x-4">
-              <p>{minTemperature}°</p>
-              <img src={TempMinIcon} alt="temp-min" />
+            <div className="inline-flex space-x-2 sm:space-x-4 items-center">
+              <p className="font-medium">{minTemperature}°</p>
+              <img
+                src={TempMinIcon}
+                alt="temp-min"
+                className="w-5 h-5 sm:w-6 sm:h-6"
+              />
             </div>
           </li>
-          <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
+          <li className="text-sm sm:text-base lg:text-lg flex items-center justify-between space-x-4">
             <span>Humidity</span>
-            <div className="inline-flex space-x-4">
-              <p>{humidity}%</p>
-              <img src={HumidityIcon} alt="humidity" />
+            <div className="inline-flex space-x-2 sm:space-x-4 items-center">
+              <p className="font-medium">{humidity}%</p>
+              <img
+                src={HumidityIcon}
+                alt="humidity"
+                className="w-5 h-5 sm:w-6 sm:h-6"
+              />
             </div>
           </li>
-          <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
+          <li className="text-sm sm:text-base lg:text-lg flex items-center justify-between space-x-4">
             <span>Cloudy</span>
-            <div className="inline-flex space-x-4">
-              <p>{cloudPercentage}%</p>
-              <img src={CloudIcon} alt="cloudy" />
+            <div className="inline-flex space-x-2 sm:space-x-4 items-center">
+              <p className="font-medium">{cloudPercentage}%</p>
+              <img
+                src={CloudIcon}
+                alt="cloudy"
+                className="w-5 h-5 sm:w-6 sm:h-6"
+              />
             </div>
           </li>
-          <li className="text-sm lg:text-lg flex items-center justify-between space-x-4">
+          <li className="text-sm sm:text-base lg:text-lg flex items-center justify-between space-x-4">
             <span>Wind</span>
-            <div className="inline-flex space-x-4">
-              <p>{windSpeed}km/h</p>
-              <img src={WindIcon} alt="wind" />
+            <div className="inline-flex space-x-2 sm:space-x-4 items-center">
+              <p className="font-medium">{windSpeed}km/h</p>
+              <img
+                src={WindIcon}
+                alt="wind"
+                className="w-5 h-5 sm:w-6 sm:h-6"
+              />
             </div>
           </li>
         </ul>

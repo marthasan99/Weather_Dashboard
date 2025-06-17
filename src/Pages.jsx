@@ -19,18 +19,22 @@ const Pages = () => {
 
   return (
     <>
+      {" "}
       {loading.state ? (
-        <div className="grid place-items-center h-screen bg-gray-100">
-          <p className="text-lg font-semibold ">{loading.message}</p>
+        <div className="grid place-items-center h-screen bg-gray-100 px-4 sm:px-6 lg:px-8">
+          <p className="text-lg sm:text-xl md:text-2xl font-semibold text-center">
+            {loading.message}
+          </p>
         </div>
       ) : (
         <div
           style={{ backgroundImage: `url('${backgroundImage}')` }}
-          className="grid place-items-center h-screen bg-no-repeat bg-cover bg-center"
+          className="grid place-items-center min-h-screen h-screen bg-no-repeat bg-cover bg-center px-4 sm:px-6 lg:px-8"
         >
+          {" "}
           <Header />
-          <main>
-            <section>
+          <main className="w-full max-w-7xl mx-auto">
+            <section className="px-2 sm:px-4">
               <WeatherBoard />
             </section>
           </main>

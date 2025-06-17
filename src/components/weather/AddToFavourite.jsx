@@ -33,16 +33,19 @@ export const AddToFavourite = () => {
 
   return (
     <>
-      <div className="md:col-span-2">
-        <div className="flex items-center justify-end space-x-6">
+      {" "}
+      <div className="col-span-1 md:col-span-2">
+        <div className="flex items-center justify-center sm:justify-end space-x-6">
           <button
-            className="text-sm md:text-base inline-flex items-center space-x-2 px-3 py-1.5 rounded-md bg-[#C5C5C54D]"
+            className="text-sm md:text-base inline-flex items-center space-x-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-md bg-[#C5C5C54D] hover:bg-[#C5C5C566] transition-colors touch-target"
             onClick={toggleFavourite}
           >
-            <span>Add to Favourite</span>
+            <span className="hidden sm:inline">Add to Favourite</span>
+            <span className="sm:hidden">Favourite</span>
             <img
               src={isFavourite ? RedHeartIcon : HeartIcon}
               alt=""
+              className="w-4 h-4 sm:w-5 sm:h-5"
             />
           </button>
         </div>
