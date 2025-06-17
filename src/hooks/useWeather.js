@@ -14,11 +14,6 @@ const useWeather = () => {
     longitude: "",
     latitude: "",
   });
-  const nullLocation = {
-    location: "",
-    lat: 0,
-    lon: 0,
-  };
   const [loading, setLoading] = useState({
     state: false,
     message: "Loading...",
@@ -47,10 +42,7 @@ const useWeather = () => {
       })
       .then((data) => {
         const updatedWeatherData = {
-          location:
-            selectedLocation === nullLocation
-              ? selectedLocation.location
-              : data.name,
+          location: data.name,
           temperature: data.main.temp,
           climate: data.weather[0],
           maxTemperature: data.main.temp_max,
@@ -80,7 +72,7 @@ const useWeather = () => {
       fetchWeatherData(selectedLocation.lat, selectedLocation.lon);
     } else {
       // Fall back to geolocation only if no location is selected
-      setLoading({ state: true, message: "Fetching Location..." });
+      setLoading({ ...loading, state: true, message: "Fetching Location..." });
       navigator.geolocation.getCurrentPosition(function (position) {
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
