@@ -5,7 +5,7 @@ import { WeatherCondition } from "./WeatherCondition";
 import { WeatherHeadline } from "./WeatherHeadline";
 
 export const WeatherBoard = () => {
-  const { weather, error, loading } = useContext(WeatherContext);
+  const { loading } = useContext(WeatherContext);
   return (
     <>
       <div className="container">

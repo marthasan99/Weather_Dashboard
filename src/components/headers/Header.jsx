@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Favourite } from "./Favourite";
 import { FavouriteListModal } from "./FavouriteListModal";
 import { Logo } from "./Logo";
 import { Search } from "./Search";
 export const Header = () => {
+  const [showModal, setShowModal] = useState(false);
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
   return (
     <>
       <header className="fixed w-full top-0 z-50 bg-gradient-to-b from-black/60 to-black/0 pb-10">
@@ -11,9 +16,8 @@ export const Header = () => {
 
           <div className="flex items-center gap-4 relative">
             <Search />
-            <Favourite />
-
-            <FavouriteListModal />
+            <Favourite toggleModal={toggleModal} />
+            <FavouriteListModal showModal={showModal} />
           </div>
         </nav>
       </header>
